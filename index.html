@@ -224,12 +224,13 @@
         }
 
         /* ── ABOUT ── */
-        #about .grid {
+        #about .grid, #now .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 5rem;
             align-items: start;
         }
+        #now .grid { grid-template-columns: 1fr; max-width: 720px; }
         #about p { color: var(--muted); margin-bottom: 1.25rem; font-size: 1.05rem; line-height: 1.8; }
         #about p strong { color: var(--text); }
 
@@ -518,16 +519,51 @@
             flex-shrink: 0;
         }
 
+        /* ── FEATURED PROJECT CARD ── */
+        .proj-card.featured {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .proj-card.featured .proj-placeholder {
+            aspect-ratio: unset;
+            min-height: 220px;
+        }
+        .proj-card.featured .proj-body {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .proj-card.featured .proj-name { font-size: 1.25rem; margin-bottom: .6rem; }
+        .proj-card.featured .proj-desc { font-size: .925rem; margin-bottom: 1.25rem; }
+        .proj-badge {
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+            font-size: .68rem;
+            color: var(--accent1);
+            border: 1px solid rgba(124,58,237,.4);
+            background: rgba(124,58,237,.07);
+            padding: .2rem .7rem;
+            border-radius: 100px;
+            margin-bottom: .75rem;
+        }
+
         /* ── RESPONSIVE ── */
         @media (max-width: 900px) {
             .proj-grid { grid-template-columns: 1fr 1fr; }
+            .proj-card.featured { grid-column: span 2; grid-template-columns: 1fr; }
+            .proj-card.featured .proj-placeholder { min-height: 160px; }
             #about .grid { grid-template-columns: 1fr; gap: 3rem; }
+            .study-grid { grid-template-columns: 1fr; }
         }
         @media (max-width: 640px) {
             nav { padding: 1rem 1.25rem; }
             .nav-links { display: none; }
             .proj-grid { grid-template-columns: 1fr; }
+            .proj-card.featured { grid-column: span 1; grid-template-columns: 1fr; }
             .hero-cta { flex-direction: column; align-items: center; }
+            .awards-strip { flex-direction: column; }
         }
     </style>
 </head>
@@ -548,9 +584,9 @@
 <section id="hero">
     <canvas id="hero-canvas"></canvas>
     <div class="hero-content">
-        <div class="hero-tag">Erasmus Mundus Scholar · Imaging &amp; Light in XR</div>
+        <div class="hero-tag">Developer &amp; Researcher · Erasmus Mundus Scholar</div>
         <h1 class="hero-name">Tasnim<br><span class="grad">Fateha</span></h1>
-        <p class="hero-sub">Studying how <strong>light and imaging work inside XR systems</strong><br>Currently based in Joensuu, Finland</p>
+        <p class="hero-sub">I build things, research them, and try to understand<br><strong>how people and computing perceive the same world differently.</strong></p>
         <div class="hero-cta">
             <a href="#now" class="btn-primary">What I'm Doing Now</a>
             <a href="#contact" class="btn-outline">Say Hello</a>
@@ -568,11 +604,11 @@
         <div class="grid">
             <div class="reveal">
                 <div class="eyebrow">Right Now</div>
-                <h2 class="section-title">Where imaging<br>meets immersive</h2>
+                <h2 class="section-title">More than one<br>thing at once</h2>
                 <div class="ruled"></div>
-                <p>I'm midway through an <strong>Erasmus Mundus Joint Master's in Imaging and Light Science in Extended Reality</strong> — a competitive EU-funded programme that studies light, optics, and imaging specifically as they apply to XR systems. I'll study across four universities in Finland, Belgium, France, and Japan.</p>
-                <p>Before this I did an <strong>MSc in IT with Distinction</strong> at University of Aberdeen (Scotland), where I worked on HCI, data visualisation, and research methods. That gave me the analytical foundation; this master's is where I'm pointing it at XR.</p>
-                <p>On the side I'm teaching myself Three.js and WebGL — this portfolio is one of those experiments. I'm looking for a chance to do something real with what I'm learning.</p>
+                <p>My background doesn't fit a single label. I've taught university students, contributed to NLP research, built data visualisation dashboards, done user research, and shipped web products for clients. The thread connecting all of it is a genuine interest in how people perceive and interact with information — and a preference for understanding things by building them.</p>
+                <p>Right now that interest is pointed at visual computing and imaging science through my <strong>Erasmus Mundus Joint Master's in Imaging and Light Science in Extended Reality</strong> — studying across four universities in Finland, Belgium, France, and Japan. XR is the current focus; it won't be the last one.</p>
+                <p>The Three.js experiments on this page are me following one thread of that curiosity. Somewhere between studying and shipping, things start to make sense.</p>
 
                 <div class="study-grid">
                     <div class="study-item"><strong>Previous</strong> University of Eastern Finland (FL) - Data Algorithms, Robotics, Eye Tracking, Advanced Spectral Imaging, Light Science, Color science </div>
@@ -666,75 +702,97 @@
         <div class="ruled reveal"></div>
         <div class="proj-grid">
 
-            <div class="proj-card reveal">
-                <img src="img/portfolio/01.jpg" alt="Voiceprint Analysis" class="proj-img"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="proj-placeholder" style="display:none">🎙️</div>
+            <!-- FEATURED: EyeSee -->
+            <div class="proj-card featured reveal">
+                <div class="proj-placeholder" style="background: linear-gradient(135deg, rgba(124,58,237,.25), rgba(6,214,214,.12)); font-size: 3rem;">👁️</div>
+                <div class="proj-body">
+                    <div class="proj-badge">XR · Three.js · WebXR</div>
+                    <div class="proj-tags">
+                        <span class="proj-tag">Meta Quest 3</span>
+                        <span class="proj-tag">Three.js</span>
+                        <span class="proj-tag">YOLOv8</span>
+                        <span class="proj-tag">Flask</span>
+                        <span class="proj-tag">GLSL</span>
+                    </div>
+                    <div class="proj-name">EyeSee — Low Vision Simulation in XR</div>
+                    <div class="proj-desc">A Meta Quest 3 WebXR app that simulates low-vision conditions through passthrough camera processing and provides real-time assistive features — magnification, contrast control, and AI object detection via YOLOv8. Built with Three.js shaders and a Flask backend as a cost-effective software alternative to physical simulation devices.</div>
+                    <a href="https://github.com/tasnimfateha/Low-Vision-Simulation-and-Solution-in-XR-using-three.js" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
+                </div>
+            </div>
+
+            <!-- FEATURED: Eye Tracking -->
+            <div class="proj-card featured reveal" style="transition-delay:.08s">
+                <div class="proj-placeholder" style="background: linear-gradient(135deg, rgba(6,214,214,.2), rgba(124,58,237,.12)); font-size: 3rem;">🧠</div>
+                <div class="proj-body">
+                    <div class="proj-badge">Eye Tracking · Cognitive Science</div>
+                    <div class="proj-tags">
+                        <span class="proj-tag">Eye Tracking</span>
+                        <span class="proj-tag">Gaze Analysis</span>
+                        <span class="proj-tag">Python</span>
+                        <span class="proj-tag">ANOVA</span>
+                        <span class="proj-tag">Heatmaps</span>
+                    </div>
+                    <div class="proj-name">Eye Tracking — Gaze &amp; Visual Attention Study</div>
+                    <div class="proj-desc">A cognitive neuroscience study measuring how image familiarity affects visual attention. Recorded gaze patterns from participants viewing historical images, then processed raw eye-tracking data to detect fixations, generate scanpath and heatmap visualisations, and run statistical analysis (ANOVA) on oculomotor metrics.</div>
+                    <a href="https://github.com/tasnimfateha/Eye_Tracking_Project" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
+                </div>
+            </div>
+
+            <!-- GreyBall -->
+            <div class="proj-card reveal" style="transition-delay:.16s">
+                <div class="proj-placeholder">🌐</div>
+                <div class="proj-body">
+                    <div class="proj-tags"><span class="proj-tag">Deep Learning</span><span class="proj-tag">Illumination</span><span class="proj-tag">Python</span></div>
+                    <div class="proj-name">Grey Ball Insertion</div>
+                    <div class="proj-desc">Synthesises photorealistic grey ball insertions into photographs by predicting colour, shading, and highlights from scene lighting using deep learning — automating illumination estimation.</div>
+                    <a href="https://github.com/tasnimfateha/grayBall_Insertion" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
+                </div>
+            </div>
+
+            <!-- Color + Elevation Map -->
+            <div class="proj-card reveal" style="transition-delay:.24s">
+                <div class="proj-placeholder" style="background: linear-gradient(135deg, rgba(6,214,214,.15), rgba(245,158,11,.1))">🗺️</div>
+                <div class="proj-body">
+                    <div class="proj-tags"><span class="proj-tag">Three.js</span><span class="proj-tag">GLSL Shaders</span><span class="proj-tag">WebGL</span></div>
+                    <div class="proj-name">Color &amp; Elevation Map</div>
+                    <div class="proj-desc">Interactive terrain visualisation using custom WebGL shaders in Three.js — colour mapped dynamically by elevation data. Live demo available.</div>
+                    <a href="https://tasnimfateha.github.io/color-and-elevation-map-using-custom-shader-in-three.js/" target="_blank" rel="noopener" class="proj-link">Live Demo →</a>
+                </div>
+            </div>
+
+            <!-- Robot in Kitchen -->
+            <div class="proj-card reveal" style="transition-delay:.32s">
+                <div class="proj-placeholder" style="background: linear-gradient(135deg, rgba(124,58,237,.15), rgba(6,214,214,.08))">🤖</div>
+                <div class="proj-body">
+                    <div class="proj-tags"><span class="proj-tag">Three.js</span><span class="proj-tag">3D Animation</span><span class="proj-tag">Scene Design</span></div>
+                    <div class="proj-name">Robot in the Kitchen</div>
+                    <div class="proj-desc">A four-part Three.js exercise — procedural robot animation and kitchen scene composition. Helped me understand 3D transforms, lighting, and scene hierarchy.</div>
+                    <a href="https://tasnimfateha.github.io/Robot-in-the-kitchen-using-three.js/" target="_blank" rel="noopener" class="proj-link">Live Demo →</a>
+                </div>
+            </div>
+
+            <!-- Voiceprint Thesis -->
+            <div class="proj-card reveal" style="transition-delay:.4s">
+                <div class="proj-placeholder">🎙️</div>
                 <div class="proj-body">
                     <div class="proj-tags"><span class="proj-tag">MSc Thesis</span><span class="proj-tag">Python</span><span class="proj-tag">ML</span><span class="proj-tag">Data Viz</span></div>
                     <div class="proj-name">Voiceprint Analysis of Vivien Leigh</div>
-                    <div class="proj-desc">MSc thesis project — led a 6-person team to build a searchable database and interactive visualisation dashboard for voice data analysis. The biggest project I've owned end-to-end.</div>
-                    <a href="https://vp-vivian-leigh-01cd09a36f15.herokuapp.com" target="_blank" rel="noopener" class="proj-link">View Project →</a>
+                    <div class="proj-desc">MSc thesis — led a team of 6 to build a searchable voice database and interactive visualisation dashboard. The largest project I've owned end-to-end.</div>
+                    <div style="display:flex; gap:.75rem; flex-wrap:wrap">
+                        <a href="https://vp-vivian-leigh-01cd09a36f15.herokuapp.com" target="_blank" rel="noopener" class="proj-link">Live App →</a>
+                        <a href="https://youtu.be/hlW-MTWUSGs" target="_blank" rel="noopener" class="proj-link">Watch Demo →</a>
+                    </div>
                 </div>
             </div>
 
-            <div class="proj-card reveal" style="transition-delay:.08s">
-                <img src="img/portfolio/02.jpg" alt="CO2 Emission Analysis" class="proj-img"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="proj-placeholder" style="display:none">🌍</div>
+            <!-- Robotics -->
+            <div class="proj-card reveal" style="transition-delay:.48s">
+                <div class="proj-placeholder" style="background: linear-gradient(135deg, rgba(245,158,11,.12), rgba(124,58,237,.1))">⚙️</div>
                 <div class="proj-body">
-                    <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Data Viz</span><span class="proj-tag">JS</span></div>
-                    <div class="proj-name">CO2 Emission Analysis</div>
-                    <div class="proj-desc">Explored global emissions datasets and built interactive charts. Got me thinking about how visualisation changes the way people understand data.</div>
-                    <a href="https://delta-emission.onrender.com" target="_blank" rel="noopener" class="proj-link">View Project →</a>
-                </div>
-            </div>
-
-            <div class="proj-card reveal" style="transition-delay:.16s">
-                <img src="img/portfolio/03.jpg" alt="E-Commerce" class="proj-img"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="proj-placeholder" style="display:none">🛒</div>
-                <div class="proj-body">
-                    <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">Flask</span><span class="proj-tag">HTML/CSS</span></div>
-                    <div class="proj-name">E-Commerce Platform</div>
-                    <div class="proj-desc">Built at Zoetrone — a real client project, not coursework. Ran the user research, designed the flow, and built it out.</div>
-                    <a href="https://ecommerce-5tc8.onrender.com" target="_blank" rel="noopener" class="proj-link">View Project →</a>
-                </div>
-            </div>
-
-            <div class="proj-card reveal" style="transition-delay:.24s">
-                <img src="img/portfolio/04.jpg" alt="Blog and Live Chat" class="proj-img"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="proj-placeholder" style="display:none">💬</div>
-                <div class="proj-body">
-                    <div class="proj-tags"><span class="proj-tag">Node.js</span><span class="proj-tag">Socket.io</span><span class="proj-tag">HTML</span></div>
-                    <div class="proj-name">Blog &amp; Live Chat</div>
-                    <div class="proj-desc">Built to understand WebSockets. Still a learning project, but the real-time part works nicely.</div>
-                    <a href="https://github.com/tasnimfateha/chat-website-with-node-js" target="_blank" rel="noopener" class="proj-link">View on GitHub →</a>
-                </div>
-            </div>
-
-            <div class="proj-card reveal" style="transition-delay:.32s">
-                <img src="img/portfolio/05.jpg" alt="Job Search" class="proj-img"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="proj-placeholder" style="display:none">💼</div>
-                <div class="proj-body">
-                    <div class="proj-tags"><span class="proj-tag">Flask</span><span class="proj-tag">Python</span><span class="proj-tag">SQL</span></div>
-                    <div class="proj-name">Job Search Website</div>
-                    <div class="proj-desc">Full-stack practice project — routing, forms, database. Nothing novel, but I understand every line.</div>
-                    <a href="https://flask-web-application.onrender.com" target="_blank" rel="noopener" class="proj-link">View Project →</a>
-                </div>
-            </div>
-
-            <div class="proj-card reveal" style="transition-delay:.4s">
-                <img src="img/portfolio/08.jpg" alt="Scanwell" class="proj-img"
-                     onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                <div class="proj-placeholder" style="display:none">🔬</div>
-                <div class="proj-body">
-                    <div class="proj-tags"><span class="proj-tag">Python</span><span class="proj-tag">JS</span><span class="proj-tag">API</span></div>
-                    <div class="proj-name">Scanwell</div>
-                    <div class="proj-desc">Contributed a document scanning feature during my time at Aberdeen Software Factory. First time working inside someone else's large codebase.</div>
-                    <a href="https://uno1-30aa13ea1602.herokuapp.com" target="_blank" rel="noopener" class="proj-link">View Project →</a>
+                    <div class="proj-tags"><span class="proj-tag">Robotics</span><span class="proj-tag">Hardware</span></div>
+                    <div class="proj-name">Robotics Project</div>
+                    <div class="proj-desc">Physical robotics build — working with hardware, sensors, and movement control. A different side of the XR/spatial computing stack.</div>
+                    <a href="https://youtu.be/kq3TEwwigvc" target="_blank" rel="noopener" class="proj-link">Watch on YouTube →</a>
                 </div>
             </div>
 
@@ -746,24 +804,20 @@
 <section id="contact">
     <div class="container">
         <div class="eyebrow">Open to opportunities</div>
-        <h2 class="section-title">Looking for an<br>internship in XR</h2>
+        <h2 class="section-title">Let's work on<br>something interesting</h2>
         <div class="ruled"></div>
-        <p class="contact-sub">My master's is specifically about imaging and light in XR — it would mean a lot to apply that in a real research environment. If you work on eye-tracking, XR hardware, or spatial computing and you're looking for an intern, I'd love to talk.</p>
-        <a href="mailto:tasnimfateha6@gmail.com" class="contact-email">tasnimfateha6@gmail.com</a>
+        <p class="contact-sub">I'm looking for an internship or research position where I can contribute and keep learning — in visual computing, imaging, interactive systems, or wherever the problem is genuinely interesting. If something here caught your eye, I'd love to talk.</p>
+        <a href="mailto:tfateha256@gmail.com" class="contact-email">tfateha256@gmail.com</a>
         <div class="socials">
             <a href="https://github.com/tasnimfateha" target="_blank" rel="noopener" class="social-btn" title="GitHub">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
             </a>
-            <a href="https://linkedin.com/in/tasnimfateha" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
+            <a href="https://www.linkedin.com/in/tasnim-fateha-933241243/" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </a>
         </div>
     </div>
 </section>
-
-<footer>
-    <p>The 3D scene is Three.js — I built it while learning &mdash; Tasnim Fateha &copy; 2025</p>
-</footer>
 
 <!-- Three.js via CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
